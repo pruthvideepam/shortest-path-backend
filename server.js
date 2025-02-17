@@ -3,6 +3,7 @@ const axios = require("axios");
 require("dotenv").config();
 
 const app = express();
+// Ensure your app listens on the dynamic PORT set by Render or fallback to 5000 for local development
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
@@ -29,6 +30,7 @@ app.get("/api/route", async (req, res) => {
   }
 });
 
+// Start the server on the correct port
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
