@@ -1,16 +1,16 @@
 const express = require("express");
 const axios = require("axios");
-const cors = require("cors");  // ✅ Import CORS
+const cors = require("cors"); // Import cors
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Proper CORS Configuration
+// ✅ Corrected CORS Middleware
 app.use(cors({
-  origin: ["https://your-frontend.vercel.app", "http://localhost:3000"],  // Allow frontend & local dev
+  origin: 'https://shortest-path-frontend.vercel.app', // Allow your frontend domain
   methods: "GET,POST",
-  allowedHeaders: "Content-Type,Authorization"
+  allowedHeaders: "Content-Type"
 }));
 
 app.use(express.json());
@@ -25,19 +25,19 @@ app.get("/api/route", async (req, res) => {
 
   try {
     const apiUrl = `https://bhuvan-app1.nrsc.gov.in/api/routing/curl_routing_state.php?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}&token=${API_KEY}`;
-    
     const response = await axios.get(apiUrl, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     });
-
     res.json(response.data);
   } catch (error) {
-    console.error("Error fetching route data:", error.response?.data || error.message);
+    console.error("Error fetching route data:", error);
     res.status(500).json({ error: "Failed to fetch route data" });
   }
 });
 
-// ✅ Start the server on the correct port
+// ✅ Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
