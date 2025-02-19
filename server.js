@@ -6,6 +6,11 @@ const app = express();
 // Ensure your app listens on the dynamic PORT set by Render or fallback to 5000 for local development
 const PORT = process.env.PORT || 5000;
 
+app.use(cors({
+  origin: 'https://your-frontend.vercel.app' // Update with your frontend URL
+}));
+
+
 app.use(express.json());
 
 app.get("/api/route", async (req, res) => {
